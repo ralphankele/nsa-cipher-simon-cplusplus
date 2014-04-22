@@ -1,5 +1,5 @@
-CXX = g++
-CXXFLAGS = -c -Wall -g
+CXX = /usr/bin/g++
+CXXFLAGS = -c -Wall -g -std=c++11 -O3
 LDFLAGS =
 SOURCES = $(wildcard *.cpp)
 OBJECTS = ${SOURCES:.cpp=.o}

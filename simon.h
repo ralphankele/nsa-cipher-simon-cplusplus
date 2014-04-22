@@ -81,6 +81,10 @@ void encrypt(uint64_t &left, uint64_t &right, int rounds);
 void decrypt(uint64_t &left, uint64_t &right);
 void decrypt(uint64_t &left, uint64_t &right, int rounds);
 
+void printz();
+int test1();
+int test2();
+
 //Helper Functions
 uint64_t S(uint64_t state, int distance);
 uint64_t F(uint64_t state);

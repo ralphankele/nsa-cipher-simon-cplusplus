@@ -58,6 +58,12 @@ void keySchedule(){
     printf("\n\n");*/
 }
 
+void printz(){
+    for(int i = KEY_WORDS; i < ROUNDS; ++i){
+        printf("%llu\n", z[CONST_J][(i-KEY_WORDS) % 62]);
+    }
+}
+
 void encrypt(uint64_t &left, uint64_t &right){
     encrypt(left, right, ROUNDS);
 }
@@ -68,7 +74,7 @@ void encrypt(uint64_t &left, uint64_t &right, int rounds){
         tmp = left;
         left = right ^ F(left) ^ key[i];
         right = tmp;
-        //printf("key: %llx , L: %llx, R: %llx \n",key[i], left, right);
+        //printf("K: %.4llx, L: %.4llx, R: %.4llx \n",key[i], left, right);
     }
 }
 
@@ -90,6 +96,11 @@ void generateKey(){
     for(int i = 0; i < KEY_WORDS; i++){
         key[i] = rand() & WORD_MASK;
     }
+    
+   /* key[3] = 0x0000;
+    key[2] = 0x0000;
+    key[1] = 0x0000;
+    key[0] = 0x0000;*/
     keySchedule();
     
     /*for(int i = 0; i < ROUNDS; i++){
@@ -105,6 +116,18 @@ int test_vectors(){
 
     // Simon32/64
     if (WORD_SIZE == 16 && KEY_WORDS == 4) {
+        key[3] = 0x0000;
+        key[2] = 0x0000;
+        key[1] = 0x0000;
+        key[0] = 0x0000;
+        L = 0x0000;
+        R = 0x0000;
+        ENC_L = 0x4637;
+        ENC_R = 0x22f5;
+    }
+    
+    // Simon32/64
+   /* if (WORD_SIZE == 16 && KEY_WORDS == 4) {
         key[3] = 0x1918;
         key[2] = 0x1110;
         key[1] = 0x0908;
@@ -113,7 +136,7 @@ int test_vectors(){
         R = 0x6877;
         ENC_L = 0xc69b;
         ENC_R = 0xe9bb;
-    }
+    }*/
 
     // Simon48/72
     if (WORD_SIZE == 24 && KEY_WORDS == 3) {
@@ -217,11 +240,66 @@ int test_vectors(){
 
     keySchedule();
     
-    //printf("L: %llx, R: %llx \n", L, R);
+    printf("K: XXXX, L: %.4llx, R: %.4llx \n", L, R);
     encrypt(L, R);
+   // printf("K: XXXX, L: %.4llx, R: %.4llx \n", L, R);
 
     if(L != ENC_L || R != ENC_R)
         return -1;
     return 0;
+}
+
+int test1(){
+    uint64_t R, L, ENC_R, ENC_L;
+    
+    // Simon32/64
+    if (WORD_SIZE == 16 && KEY_WORDS == 4) {
+        key[3] = 0x0000;
+        key[2] = 0x0000;
+        key[1] = 0x0000;
+        key[0] = 0x0000;
+        L = 0x0001;
+        R = 0x0000;
+        ENC_L = 0x4637;
+        ENC_R = 0x22f5;
+    }
+    
+    keySchedule();
+    
+    printf("         L: %.4llx, R: %.4llx \n", L, R);
+    encrypt(L, R);
+    // printf("K: XXXX, L: %.4llx, R: %.4llx \n", L, R);
+    
+    if(L != ENC_L || R != ENC_R)
+        return -1;
+    return 0;
+    
+}
+
+int test2(){
+    uint64_t R, L, ENC_R, ENC_L;
+    
+    // Simon32/64
+    if (WORD_SIZE == 16 && KEY_WORDS == 4) {
+        key[3] = 0x0000;
+        key[2] = 0x0000;
+        key[1] = 0x0000;
+        key[0] = 0x0000;
+        L = 0x0001;
+        R = 0x0000;
+        ENC_L = 0x4637;
+        ENC_R = 0x22f5;
+    }
+    
+    keySchedule();
+    
+    printf("K: 0000, L: %.4llx, R: %.4llx \n", L, R);
+    encrypt(L, R);
+    // printf("K: XXXX, L: %.4llx, R: %.4llx \n", L, R);
+    
+    if(L != ENC_L || R != ENC_R)
+        return -1;
+    return 0;
+    
 }
 
