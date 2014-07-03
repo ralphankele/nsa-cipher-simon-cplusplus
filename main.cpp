@@ -19,15 +19,15 @@
 
 int main(int argc, char** argv){
    // printf("Testing Simon%d/%d: \n", WORD_SIZE*2, WORD_SIZE*KEY_WORDS);
-    /*if(test_vectors() != 0)
+    if(test_vectors() != 0)
         printf("Encryption failed!\n");
     printf("Encryption ok!\n");
-    */
+    
     
    // printf("Printz: \n");
    // printz();
     
-    impossibleDifferentialAttack();
+   // impossibleDifferentialAttack();
     //printf("argv: %s\n", argv[1]);
     
     /*if(strncmp(argv[1], "first", 5) == 0)

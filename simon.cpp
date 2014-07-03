@@ -53,9 +53,9 @@ void keySchedule(){
         key[i] = key[i-KEY_WORDS] ^ z[CONST_J][(i-KEY_WORDS) % 62] ^ tmp ^ CONST_C;
     }
     
-    /*for (int i = 0; i < ROUNDS; ++i)
+    for (int i = 0; i < ROUNDS; ++i)
         printf("%llx\n", key[i]);
-    printf("\n\n");*/
+    printf("\n\n");
 }
 
 void printz(){
@@ -74,7 +74,7 @@ void encrypt(uint64_t &left, uint64_t &right, int rounds){
         tmp = left;
         left = right ^ F(left) ^ key[i];
         right = tmp;
-        //printf("K: %.4llx, L: %.4llx, R: %.4llx \n",key[i], left, right);
+        printf("K: %.4llx, L: %.4llx, R: %.4llx \n",key[i], left, right);
     }
 }
 
@@ -115,7 +115,7 @@ int test_vectors(){
 
 
     // Simon32/64
-    if (WORD_SIZE == 16 && KEY_WORDS == 4) {
+   /* if (WORD_SIZE == 16 && KEY_WORDS == 4) {
         key[3] = 0x0000;
         key[2] = 0x0000;
         key[1] = 0x0000;
@@ -124,10 +124,10 @@ int test_vectors(){
         R = 0x0000;
         ENC_L = 0x4637;
         ENC_R = 0x22f5;
-    }
+    }*/
     
     // Simon32/64
-   /* if (WORD_SIZE == 16 && KEY_WORDS == 4) {
+    if (WORD_SIZE == 16 && KEY_WORDS == 4) {
         key[3] = 0x1918;
         key[2] = 0x1110;
         key[1] = 0x0908;
@@ -136,7 +136,7 @@ int test_vectors(){
         R = 0x6877;
         ENC_L = 0xc69b;
         ENC_R = 0xe9bb;
-    }*/
+    }
 
     // Simon48/72
     if (WORD_SIZE == 24 && KEY_WORDS == 3) {
